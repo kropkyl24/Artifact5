@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slideshow</title>
+<style>
+  /* CSS styles */
+  #slideshow {
+    position: relative;
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  #slideshow img {
+    width: 100%; /* Ensures the image fills its container */
+    height: 100%; /* Ensures the image fills its container */
+    object-fit: cover; /* Preserve aspect ratio and cover the entire container */
+    display: none;
+  }
+  #prev, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  #prev {
+    left: 10px;
+  }
+  #next {
+    right: 10px;
+  }
+  #description {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+<div id="slideshow">
+  <img src="https://daily.jstor.org/wp-content/uploads/2018/06/soccer_europe_1050x700.jpg" alt="Soccer">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDlHvFpgt8RbcKZneeL4JC4pdA73uyo0P1PA&usqp=CAU" alt="Football">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhSutCsvak8axRoodUv1hFCE8IOFbxcsR7wQ&usqp=CAU" alt="Hockey">
+  <img src="https://static.owayo-cdn.com/newhp/img/magazin/basketballstatistikEN/basketball-statistics-670.jpg" alt="Basketball">
+  <img src="https://img.mlbstatic.com/mlb-images/image/private/t_16x9/t_w1536/mlb/crbela7xbocusesq8f8v.jpg" alt="Baseball">
+  <button id="prev">Previous</button>
+  <button id="next">Next</button>
+</div>
+<div id="description">Description will be displayed here</div>
+<script>
+  // JavaScript code
+  const images = document.querySelectorAll('#slideshow img');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const description = document.getElementById('description');
+  let currentIndex = 0;
+
+  function showImage(index) {
+    images.forEach(img => img.style.display = 'none');
+    images[index].style.display = 'block';
+    description.textContent = images[index].alt;
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex);
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex);
+  }
+
+  nextBtn.addEventListener('click', nextImage);
+  prevBtn.addEventListener('click', prevImage);
+
+  // Automatic image change
+  setInterval(nextImage, 3000); // Change image every 3 seconds
+  showImage(currentIndex); // Show the first image initially
+</script>
+</body>
+</html>
